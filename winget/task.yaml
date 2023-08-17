@@ -3,7 +3,7 @@
 name: winget
 description: Applies a winget configuration to the Dev Box.
 author: Microsoft Corporation
-command: './main.ps1 -ConfigurationFile {{configurationFile}} -DownloadUrl {{downloadUrl}} -Package {{package}} -RunAsUser {{runAsUser}}'
+command: './main.ps1 -ConfigurationFile {{configurationFile}} -DownloadUrl {{downloadUrl}} -Package {{package}} -RunAsUser {{runAsUser}} -Override {{override}} '
 inputs:
   configurationFile:
     defaultValue: ''
@@ -31,3 +31,9 @@ inputs:
     description: | 
       Whether to run the installation as the current user or as an administrator. 
       If set to true, the installation will run during the user's first login to the machine.
+  override:
+    defaultValue: ""
+    type: 'string'
+    required: false
+    description: | 
+       Whether override the install command. 

@@ -6,7 +6,9 @@ param (
     [Parameter()]
     [string]$RunAsUser,
     [Parameter()]
-    [string]$Package
+    [string]$Package,
+    [Parameter()]
+    [string]$Override
 )
 
 $CustomizationScriptsDir = "C:\DevBoxCustomizations"
@@ -89,10 +91,16 @@ if (!(Test-Path -PathType Leaf "$($CustomizationScriptsDir)\$($LockFile)")) {
 }
 
 if ($Package) {
+
+    $installCommand = "Install-WinGetPackage -Id $($Package)"
+    if(-not ([string]::IsNullOrEmpty($Override))) {
+        $installCommand += " -Override $Override"
+    }
+
     if ($RunAsUser -eq "true") {
-        Add-Content -Path "$($CustomizationScriptsDir)\$($RunAsUserScript)" -Value "Install-WinGetPackage -Id $($Package)"
+        Add-Content -Path "$($CustomizationScriptsDir)\$($RunAsUserScript)" -Value $installCommand
     } else {
-        Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine="C:\Program Files\PowerShell\7\pwsh.exe -MTA -Command `"Install-WinGetPackage -Id $($Package)`""}
+        Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine="C:\Program Files\PowerShell\7\pwsh.exe -MTA -Command `"$installCommand`""}
     }
 }
 

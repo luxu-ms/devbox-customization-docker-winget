@@ -1,4 +1,4 @@
-name: restart
+name: logout
 command: './main.ps1 -RunAsUser {{runAsUser}}'
 inputs:
   runAsUser:

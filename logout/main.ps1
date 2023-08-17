@@ -6,7 +6,7 @@ param (
 if($RunAsUser -eq "true") {
     $CustomizationScriptsDir = "C:\DevBoxCustomizations"
     $RunAsUserScript = "runAsUser.ps1"
-    Add-Content -Path "$($CustomizationScriptsDir)\$($RunAsUserScript)" -Value "Restart-Computer"
+    Add-Content -Path "$($CustomizationScriptsDir)\$($RunAsUserScript)" -Value "logoff"
 }else{
-    Restart-Computer
+    logoff
 }

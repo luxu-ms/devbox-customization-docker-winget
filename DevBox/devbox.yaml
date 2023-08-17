@@ -7,6 +7,7 @@ setupTasks:
     inputs:
       package: 'Docker.DockerDesktop'
       runAsUser: true
-  - task: restart
+      override: 'install --quiet --accept-license'
+  - task: logout
     inputs:
       runAsUser: true
