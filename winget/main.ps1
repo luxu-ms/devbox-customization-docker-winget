@@ -94,7 +94,7 @@ if ($Package) {
 
     $installCommand = "Install-WinGetPackage -Id $($Package)"
     if(-not ([string]::IsNullOrEmpty($Override))) {
-        $installCommand += " -Override $Override"
+        $installCommand += " -Override '$Override'"
     }
 
     if ($RunAsUser -eq "true") {
